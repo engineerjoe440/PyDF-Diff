@@ -1,0 +1,11 @@
+version: "3.9"
+
+# Web-UI is Defined by Local "dockerfile", Must Be Rebuilt Each Time
+services:
+  webui:
+    build:
+      context: ./
+      dockerfile: ./dockerfile
+    ports:
+      - 8081:80
+    restart: always

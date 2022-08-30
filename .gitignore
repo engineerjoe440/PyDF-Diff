@@ -1,3 +1,8 @@
+# Ignore Static Files Built from Frontend
+backend/static/react/
+backend/templates/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -10,3 +10,6 @@ RUN pip3 install \
     fastapi-utils
 
 COPY ./backend /server
+
+# Run Server
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--log-config", "log_conf.yml"]
