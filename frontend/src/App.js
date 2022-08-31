@@ -2,7 +2,10 @@
  * App.js
  * 
  * Main javascript application definition - a thin wrapper around the other
- * components that are used for the 4-H Photo Uploader.
+ * components that are used for the PDF diffing functionality.
+ * 
+ * License: MIT
+ * Original Author: Joe Stanley
  ******************************************************************************/
  import React, { Component } from "react";
  import { ThemeProvider, createTheme } from '@mui/material/styles';
