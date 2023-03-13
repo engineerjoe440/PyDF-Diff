@@ -10,9 +10,20 @@ differ.py - the Python difference support file.
 """
 ################################################################################
 
+from threading import Thread
+
 from pdf_diff.command_line import compute_changes, render_changes
 
-def generate_diff(file_1, file_2, top_margin, bottom_margin, style, width):
+def generate_diff(
+    file_1,
+    file_2,
+    top_margin,
+    bottom_margin,
+    style,
+    width,
+    *args,
+    **kwargs
+) -> str:
     """Generate Difference between Two PDF Files."""
     changes = compute_changes(
         file_1,
@@ -22,5 +33,11 @@ def generate_diff(file_1, file_2, top_margin, bottom_margin, style, width):
     )
     img = render_changes(changes, style, width)
     return img
+
+def threaded_diff(*args, **kwargs):
+    """Threaded Difference Generator."""
+    thread = Thread(target=generate_diff, args=args, kwargs=kwargs, daemon=True)
+    thread.start()
+    return thread.join()
 
 # END

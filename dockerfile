@@ -1,5 +1,5 @@
 # PyDF-Diff Dockerfile
-FROM ubuntu:jammy
+FROM ubuntu:kinetic
 
 RUN apt-get install python3 python3-pip python3-lxml poppler-utils -y
 

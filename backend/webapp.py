@@ -15,6 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
+from differ import threaded_diff
 
 
 app = FastAPI()
@@ -26,6 +27,11 @@ class PdfDiff(BaseModel):
     """The API Model for Requesting a Diff Between Two PDF Files."""
     file_1: UploadFile
     file_2: UploadFile
+    send_to_email_address: str
+    top_margin: float # TODO Set Default
+    bottom_margin: float # TODO Set Default
+    style: Any # TODO Redefine Type and Set Default
+    width: float # TODO Set Default
 
 
 @app.on_event("startup")
@@ -57,6 +63,14 @@ async def index(request: Request):
 @app.post("/api/v1/generate-diff")
 def generate_diff(diff_config: PdfDiff):
     """Generate the Difference Between two Files."""
+    path = threaded_diff(
+        file_1=diff_config.file_1,
+        file_2=diff_config.file_2,
+        top_margin=diff_config.top_margin,
+        bottom_margin=diff_config.bottom_margin,
+        style=diff_config.style,
+        width=diff_config.width,
+    )
     return
 
 # END
