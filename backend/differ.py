@@ -15,14 +15,14 @@ from threading import Thread
 from pdf_diff.command_line import compute_changes, render_changes
 
 def generate_diff(
-    file_1,
-    file_2,
-    top_margin,
-    bottom_margin,
+    file_1: str,
+    file_2: str,
+    top_margin: float,
+    bottom_margin: float,
     style,
     width,
-    *args,
-    **kwargs
+    *_,
+    **__
 ) -> str:
     """Generate Difference between Two PDF Files."""
     changes = compute_changes(

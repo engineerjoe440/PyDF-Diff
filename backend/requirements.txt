@@ -1,0 +1,8 @@
+fastapi
+python-multipart
+pydantic[email]
+wheel
+jinja2
+uvicorn
+pdf-diff
+fastapi-utils
