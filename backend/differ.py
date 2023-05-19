@@ -11,16 +11,19 @@ differ.py - the Python difference support file.
 ################################################################################
 
 from threading import Thread
+from pathlib import Path
+from shutil import copy
 
 from pdf_diff.command_line import compute_changes, render_changes
 
 def generate_diff(
     file_1: str,
     file_2: str,
+    unique_id: str,
     top_margin: float,
     bottom_margin: float,
-    style,
-    width,
+    width: float,
+    style = "strike,underline",
     *_,
     **__
 ) -> str:
@@ -32,7 +35,9 @@ def generate_diff(
         bottom_margin=float(bottom_margin)
     )
     img = render_changes(changes, style, width)
-    return img
+    output_path = Path(file_1).parent / f"{unique_id}.png"
+    with open(output_path, 'wb') as generated:
+        img.save(generated, 'png')
 
 def threaded_diff(*args, **kwargs):
     """Threaded Difference Generator."""

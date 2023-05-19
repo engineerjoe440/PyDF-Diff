@@ -26,6 +26,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MuiAlert from '@mui/material/Alert';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Snackbar from '@mui/material/Snackbar';
 import { DropzoneArea } from 'react-mui-dropzone'
 import CssBaseline from '@mui/material/CssBaseline';
@@ -65,6 +66,13 @@ const openInNewTab = (url) => {
   if (newWindow) newWindow.opener = null
 }
 
+const onDownload = () => {
+  const link = document.createElement("a");
+  link.download = `PyDF-DIFF.png`;
+  link.href = `/download/PyDF-DIFF.png?client=${window.token}`;
+  link.click();
+};
+
  
  class App extends Component {
    constructor(props) {
@@ -83,6 +91,7 @@ const openInNewTab = (url) => {
        snackbarMsg: "", 
        severity: "success",
        uploading: false,
+       downloadReady: false
      };
  
      // Bind Class Method
@@ -127,31 +136,23 @@ const openInNewTab = (url) => {
       })
     };
 
-   handleSuccessfulDiff = (uploadedFile) => {
+   handleSuccessfulDiff = (info) => {
     // Show Popup with Listed Successful File - Remove File from List
-    console.log(uploadedFile);
+    console.log(info);
 
     // Update Snackbar
     this.setState({
-      snackbarMsg: `Successfully uploaded image '${uploadedFile}'.`,
+      snackbarMsg: `Successfully evaluated PDF Difference! '${info}'.`,
       snackbarOpen: true,
       severity: "success",
     })
-
-    // Remove the Uploaded File
-    var files = this.state.files.filter(
-      function(f){return f.name !== uploadedFile;}
-    );
-    this.setState({files: files});
-
-    // When the List of Files is Emptied, We're Done
-    if (files.length === 0) {
-      // Turn Off Spinner
-      this.setState({
-        uploading: false, 
-        dropzoneKey: this.state.dropzoneKey + 1,
-      });
-    }
+    // Turn Off Spinner
+    this.setState({
+      uploading: false, 
+      dropzoneKey: this.state.dropzoneKey + 1,
+      files: [],
+      downloadReady: true,
+    });
   };
 
   
@@ -265,6 +266,18 @@ const openInNewTab = (url) => {
                 variant="contained"
               >
                 Evaluate PDF Difference
+              </LoadingButton>
+            </FormControl>
+            <FormControl id="EvaluatedPDFDownload" mt={3}>
+              <LoadingButton
+                onClick={onDownload}
+                endIcon={<FileDownloadIcon />}
+                loading={this.state.uploading}
+                loadingPosition="end"
+                variant="contained"
+                disabled={!this.state.downloadReady}
+              >
+                Download PDF Difference
               </LoadingButton>
             </FormControl>
             </div>
