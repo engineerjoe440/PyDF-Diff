@@ -51,7 +51,7 @@ SERVER = Server()
 async def startup_event():
     """Event that Only Runs When App is Starting"""
     # Mount the Static File Path
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+    app.mount("./static", StaticFiles(directory="static"), name="static")
     SERVER.templates = Jinja2Templates(directory="templates")
     SERVER.tempdir = TemporaryDirectory("pydf_diff")
 
