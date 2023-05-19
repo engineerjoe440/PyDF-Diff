@@ -12,7 +12,6 @@ from enum import Enum
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
-from fastapi import FastAPI
 from uuid import uuid4, UUID
 from fastapi import FastAPI, Request, File, UploadFile, HTTPException, status
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
@@ -98,7 +97,7 @@ async def generate_diff(
     top_margin: float = 0,
     bottom_margin: float = 100,
     width: int = 900,
-    style: list[DiffStyle] = DEFAULT_STYLES,
+    style: list[DiffStyle] = None,
 ) -> ResponseModel:
     """Generate the Difference Between two Files."""
     if len(files) != 2:
@@ -109,6 +108,8 @@ async def generate_diff(
                 "provided."
             )
         )
+    if style is None:
+        style = DEFAULT_STYLES
     # Store Files in Temporary Directory
     temp_dir_path = Path(SERVER.tempdir.name)
     local_paths = []

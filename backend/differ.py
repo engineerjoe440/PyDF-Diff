@@ -12,7 +12,6 @@ differ.py - the Python difference support file.
 
 from threading import Thread
 from pathlib import Path
-from shutil import copy
 
 from pdf_diff.command_line import compute_changes, render_changes
 
@@ -23,8 +22,8 @@ def generate_diff(
     top_margin: float,
     bottom_margin: float,
     width: float,
-    style = "strike,underline",
     *_,
+    style: str = "strike,underline",
     **__
 ) -> str:
     """Generate Difference between Two PDF Files."""

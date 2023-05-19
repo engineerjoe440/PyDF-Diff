@@ -12,7 +12,7 @@ export default async function uploadPDFFiles({
     // Generate the Query String from Parameters
     const params = {
         client_id: window.token,
-        send_to_email_address: "engineerjoe440@yahoo.com",
+        send_to_email_address: "noreply@example.com",
         top_margin: 0.0,
         bottom_margin: 100.0,
         width: 900,
