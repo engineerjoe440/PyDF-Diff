@@ -9,6 +9,7 @@
 * [pdf-diff](https://github.com/JoshData/pdf-diff)
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [MaterialUI](https://mui.com/material-ui/getting-started/overview/)
+* [react-mui-dropzone](https://github.com/lifeeric/material-ui-dropzone)
 
 
 ## Roadmap
